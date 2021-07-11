@@ -22,12 +22,23 @@ then
     fi
 fi
 
+# If string is empty there is no wifi
+text="No Wife"
 
 if [ $file_contents -eq 0 ]
 then
     # First print SSID
-    printf $(nmcli -t -f active,ssid dev wifi | grep -G ^yes | cut -d\: -f2)
+    temp=$(nmcli -t -f active,ssid dev wifi | grep -G ^yes | cut -d\: -f2)
 else
     # When click print ip
-    printf $(ip -brief addr | grep wlo1 | awk '{print $3}' | grep -Go --color=no "^[^/]*")
+    temp=$(ip -brief addr | grep wlo1 | awk '{print $3}' | grep -Go --color=no "^[^/]*")
 fi
+
+# If the text isnt empty (theres a wifi connection) then display the ip
+# or SSID, else "No Wifi"
+if [ "$temp" != "" ]
+then
+    text=$temp
+fi
+
+printf "$text"
