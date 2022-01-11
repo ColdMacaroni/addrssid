@@ -3,7 +3,7 @@
 tmp_file="/tmp/addrssid-$USER"
 
 # Make sure file exists
-# touch $tmp_file
+touch $tmp_file
 
 # Check if the file has anything
 file_contents=1
